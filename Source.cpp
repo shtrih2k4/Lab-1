@@ -90,20 +90,20 @@ struct List {
 			}
 		}
 	}
-	void find_by_value(int _val) {
-		cout << "Данный елемент("<<_val<<") встречается на позициях : ";
+	vector<unsigned int> find_by_value(int _val) {
+		vector<unsigned int> positions;
 		Node* p = first;
 		unsigned int k = 0;
 		while (p) {
 			if (p->val == _val) {
-				cout << k << " ";
+				positions.push_back(k);
 			}
 			p = p->next;
 			k++;
 		}
-		cout << endl;
+		return positions;
 	}
-	void search_duplicates() {
+	vector<int> search_duplicates() {
 		vector<int> dupl;
 		Node* p = first;
 		while (p) {
@@ -116,13 +116,9 @@ struct List {
 			}
 			p = p->next;
 		}
-		cout << "Повторяющиеся елементы:";
-		for (unsigned int i = 0; i < dupl.size(); ++i) {
-			cout << dupl.at(i) << " ";
-		}
-		cout << endl;
+		return dupl;
 	}
-	void search_multiple_duplicates() {
+	vector<int> search_multiple_duplicates() {
 		vector<int> dupl;
 		Node* p = first;
 		unsigned int k;
@@ -141,10 +137,7 @@ struct List {
 			}
 			p = p->next;
 		}
-		cout << "Елементы, которые повторяются 3-4 раза:";
-		for (auto& k : dupl) {
-			cout << k << " ";
-		}
+		return dupl;
 	}
 };
 int main() {
@@ -160,8 +153,24 @@ int main() {
 	a.insert(3, 0);
 	a.remove(2);
 	a.print();
-	a.find_by_value(3);
-	a.search_duplicates();
-	a.search_multiple_duplicates();
+	vector<unsigned int> pos;
+	pos=a.find_by_value(3);
+	cout << "Индексы даного елемента:";
+	for (auto& k : pos) {
+		cout << k << " ";
+	}
+	cout << endl;
+	vector<int> duplicates, mult_duplicates;
+	duplicates=a.search_duplicates();
+	cout << "Елементы, которые повторяются:";
+	for (auto& k : duplicates) {
+		cout << k << " ";
+	}
+	cout << endl;
+	mult_duplicates=a.search_multiple_duplicates();
+	cout << "Елементы, которые повторяются 3-4 раза:";
+	for (auto& k : mult_duplicates) {
+		cout << k << " ";
+	}
 	return 0;
 }
